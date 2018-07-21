@@ -16,19 +16,20 @@ namespace EventAggregator.Repository
     public class LocksActivityRepository : ILocksActivityRepository
     {
         private readonly IConfiguration _config;
-        private readonly IEventDeserializer _deserializer;
+        private readonly IEventSerializer _serializer;
 
-        public LocksActivityRepository(IConfiguration configuration, IEventDeserializer deserializer)
+        public LocksActivityRepository(IConfiguration configuration, IEventSerializer serializer)
         {
             _config = configuration;
-            _deserializer = deserializer;
+            _serializer = serializer;
         }
 
         private IDbConnection Connection => new SqliteConnection(_config.GetConnectionString("Events.db"));
 
 
-        public async Task<SerializedEvent> CreateAsync(SerializedEvent @event)
+        public async Task<SerializedEvent> CreateAsync(BaseLockMessage @event)
         {
+            var serializedEvent = _serializer.Serialize(@event);
             using (var db = Connection)
             {
                 await db.ExecuteAsync(
@@ -38,11 +39,11 @@ namespace EventAggregator.Repository
                     "VALUES " +
                     $"(@{nameof(SerializedEvent.Id)}, @{nameof(SerializedEvent.CreatedDate)}, @{nameof(SerializedEvent.AggregateId)}, " +
                     $"@{nameof(SerializedEvent.UserId)}, @{nameof(SerializedEvent.EventType)}, @{nameof(SerializedEvent.Data)}) ",
-                    @event
+                    serializedEvent
                 ).ConfigureAwait(false);
             }
 
-            return @event;
+            return serializedEvent;
         }
 
         public async Task<IEnumerable<DeserializedLockEvent>> GetEventsAsync(Guid aggregateId, string userId)
@@ -56,7 +57,7 @@ namespace EventAggregator.Repository
                     new {AggregateId = aggregateId, UserId = userId}
                 ).ConfigureAwait(false);
 
-                return events.Select(_deserializer.Deserialize);
+                return events.Select(_serializer.Deserialize);
             }
         }
     }

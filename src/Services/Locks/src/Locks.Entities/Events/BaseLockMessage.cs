@@ -6,7 +6,7 @@ namespace Contracts.Events
     {
         Guid EventId { get; }
 
-        DateTime CreatedDate { get; }
+        DateTime EventCreatedDate { get; }
 
         string UserId { get; }
 

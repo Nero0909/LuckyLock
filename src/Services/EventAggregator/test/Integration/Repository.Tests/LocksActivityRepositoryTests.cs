@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using AutoFixture;
+using Contracts.Events;
 using Dapper;
 using EventAggregator.Entities;
 using EventAggregator.Repository;
@@ -33,7 +34,7 @@ namespace Repository.Tests
         [SetUp]
         public void Initialization()
         {
-            var serializer = new DeserializerStub();
+            var serializer = new SerializerStub();
             _repository = new LocksActivityRepository(_configuration, serializer);
 
             SqlMapper.AddTypeHandler(new DateTimeHandler());
@@ -44,13 +45,16 @@ namespace Repository.Tests
         public async Task CreateAsync_NotNulModel_Created()
         {
             // Arrange
-            var entity = _fixure.Create<SerializedEvent>();
+            BaseLockMessage entity = _fixure.Create<LockCreatedMessage>();
 
             // Act
             var created = await _repository.CreateAsync(entity);
 
             // Assert
-            entity.Should().BeEquivalentTo(created, opt => opt.WithStrictOrdering());
+            entity.LockId.Should().Be(created.AggregateId);
+            entity.EventCreatedDate.Should().Be(created.CreatedDate);
+            entity.EventId.Should().Be(created.Id);
+            entity.UserId.Should().Be(created.UserId);
         }
 
         [Test]
@@ -58,12 +62,12 @@ namespace Repository.Tests
         {
             // Arrange
             var aggregateId = Guid.NewGuid();
-            var first = _fixure.Create<SerializedEvent>();
-            first.AggregateId = aggregateId;
+            var first = _fixure.Create<LockCreatedMessage>();
+            first.LockId = aggregateId;
             first.UserId = _userId;
 
-            var second = _fixure.Create<SerializedEvent>();
-            second.AggregateId = aggregateId;
+            var second = _fixure.Create<LockCreatedMessage>();
+            second.LockId = aggregateId;
             second.UserId = _userId;
 
             var createdFirst = await _repository.CreateAsync(first);

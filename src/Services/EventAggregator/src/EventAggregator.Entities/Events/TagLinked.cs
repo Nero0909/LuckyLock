@@ -10,7 +10,7 @@ namespace Contracts.Events
     public class TagLinkedMessage : TagLinked
     {
         public Guid EventId { get; set; }
-        public DateTime CreatedDate { get; set; }
+        public DateTime EventCreatedDate { get; set; }
         public string UserId { get; set; }
         public Guid LockId { get; set; }
         public Guid TagId { get; set; }

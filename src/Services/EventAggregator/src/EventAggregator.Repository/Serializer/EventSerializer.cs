@@ -7,11 +7,11 @@ using Newtonsoft.Json;
 
 namespace EventAggregator.Repository.Serializer
 {
-    public class EventDeserializer : IEventDeserializer
+    public class EventSerializer : IEventSerializer
     {
         private readonly Lazy<List<Type>> _eventTypes;
 
-        public EventDeserializer()
+        public EventSerializer()
         {
             _eventTypes = new Lazy<List<Type>>(() =>
             {
@@ -45,6 +45,19 @@ namespace EventAggregator.Repository.Serializer
             }
 
             return null;
+        }
+
+        public SerializedEvent Serialize(BaseLockMessage message)
+        {
+            return new SerializedEvent
+            {
+                Id = message.EventId,
+                AggregateId = message.LockId,
+                CreatedDate = message.EventCreatedDate,
+                EventType = message.GetType().Name,
+                UserId = message.UserId,
+                Data = JsonConvert.SerializeObject(message)
+            };
         }
     }
 }

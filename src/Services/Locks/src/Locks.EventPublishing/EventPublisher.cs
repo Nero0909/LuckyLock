@@ -20,7 +20,7 @@ namespace Locks.EventPublishing
             var message = new LockStateChangedMessage
             {
                 LockId = @lock.Id,
-                CreatedDate = @lock.CreatedDate,
+                EventCreatedDate = DateTime.UtcNow,
                 UserId = userId,
                 EventId = Guid.NewGuid(),
                 PreviousState = oldState.ToString(),
@@ -34,11 +34,12 @@ namespace Locks.EventPublishing
         {
             var message = new LockCreatedMessage
             {
-                CreatedDate = @lock.CreatedDate,
+                LockCreatedDate = @lock.CreatedDate,
                 LockId = @lock.Id,
                 Name = @lock.Name,
                 UserId = userId,
                 EventId = Guid.NewGuid(),
+                EventCreatedDate = DateTime.UtcNow,
                 UniqueNumber = @lock.UniqueNumber
             };
 
@@ -49,7 +50,7 @@ namespace Locks.EventPublishing
         {
             var message = new LockDeletedMessage
             {
-                CreatedDate = @lock.CreatedDate,
+                EventCreatedDate = DateTime.UtcNow,
                 LockId = @lock.Id,
                 UserId = userId,
                 EventId = Guid.NewGuid()
@@ -62,7 +63,7 @@ namespace Locks.EventPublishing
         {
             var message = new TagLinkedMessage
             {
-                CreatedDate = link.CreatedDate,
+                EventCreatedDate = DateTime.UtcNow,
                 LockId = link.LockId,
                 UserId = userId,
                 EventId = Guid.NewGuid(),
@@ -76,7 +77,7 @@ namespace Locks.EventPublishing
         {
             var message = new TagUnlinkedMessage
             {
-                CreatedDate = link.CreatedDate,
+                EventCreatedDate = DateTime.UtcNow,
                 LockId = link.LockId,
                 UserId = userId,
                 EventId = Guid.NewGuid(),

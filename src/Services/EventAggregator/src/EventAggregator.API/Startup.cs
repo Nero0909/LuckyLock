@@ -91,8 +91,8 @@ namespace EventAggregator.API
                 .As<IHttpContextAccessor>()
                 .SingleInstance();
 
-            builder.RegisterType<EventDeserializer>()
-                .As<IEventDeserializer>()
+            builder.RegisterType<EventSerializer>()
+                .As<IEventSerializer>()
                 .SingleInstance();
 
             builder.Populate(services);

@@ -23,46 +23,27 @@ namespace EventAggregator.EventConsuming.Consumers
 
         public Task Consume(ConsumeContext<LockCreated> context)
         {
-            return Consume(context.Message);
+            return _repository.CreateAsync(context.Message);
         }
 
         public Task Consume(ConsumeContext<LockDeleted> context)
         {
-            return Consume(context.Message);
+            return _repository.CreateAsync(context.Message);
         }
 
         public Task Consume(ConsumeContext<LockStateChanged> context)
         {
-            return Consume(context.Message);
+            return _repository.CreateAsync(context.Message);
         }
 
         public Task Consume(ConsumeContext<TagLinked> context)
         {
-            return Consume(context.Message);
+            return _repository.CreateAsync(context.Message);
         }
 
         public Task Consume(ConsumeContext<TagUnlinked> context)
         {
-            return Consume(context.Message);
-        }
-
-        private Task Consume<T>(T @event) where T : BaseLockMessage
-        {
-            var serializedEvent = SerializeEvent(@event);
-            return _repository.CreateAsync(serializedEvent);
-        }
-
-        private SerializedEvent SerializeEvent<T>(T @event) where T : BaseLockMessage
-        {
-            return new SerializedEvent
-            {
-                Id = @event.EventId,
-                AggregateId = @event.LockId,
-                CreatedDate = @event.CreatedDate,
-                EventType = @event.GetType().Name,
-                UserId = @event.UserId,
-                Data = JsonConvert.SerializeObject(@event)
-            };
+            return _repository.CreateAsync(context.Message);
         }
     }
 }

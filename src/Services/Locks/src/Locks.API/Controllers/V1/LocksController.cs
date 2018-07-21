@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using Locks.API.Controllers.V1.Models;
 using Locks.API.Infrastructure.Filters;
@@ -114,7 +115,7 @@ namespace Locks.API.Controllers.V1
                 return Conflict(new ErrorResponse {Error = "Link already exists"});
             }
 
-            return Created(Url.RouteUrl(link.Id), link.Id);
+            return StatusCode((int) HttpStatusCode.Created);
         }
 
         [Route("{lockid}/tags/{tagid}")]

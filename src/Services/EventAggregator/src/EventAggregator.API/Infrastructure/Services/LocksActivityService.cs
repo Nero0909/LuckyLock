@@ -20,7 +20,7 @@ namespace EventAggregator.API.Infrastructure.Services
         {
             var events = await _repository.GetEventsAsync(lockId, userId).ConfigureAwait(false);
 
-            return events.Select(CreateActivity);
+            return events.Select(CreateActivity).OrderByDescending(x => x.CreatedDate);
         }
 
         private LockActivity CreateActivity(DeserializedLockEvent e)
