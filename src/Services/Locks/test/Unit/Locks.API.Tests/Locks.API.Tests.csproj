@@ -4,4 +4,19 @@
     <TargetFramework>netcoreapp2.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="FluentAssertions" Version="5.4.1" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.8.0" />
+    <PackageReference Include="Moq" Version="4.9.0" />
+    <PackageReference Include="NBuilder" Version="6.0.0" />
+    <PackageReference Include="NUnit" Version="3.10.1" />
+    <PackageReference Include="NUnit3TestAdapter" Version="3.10.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\src\Locks.API\Locks.API.csproj" />
+    <ProjectReference Include="..\..\..\src\Locks.EventPublishing\Locks.EventPublishing.csproj" />
+    <ProjectReference Include="..\..\..\src\Locks.Repositories\Locks.Repository.csproj" />
+  </ItemGroup>
+
 </Project>

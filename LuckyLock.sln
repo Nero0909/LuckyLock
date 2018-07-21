@@ -88,13 +88,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventAggregator.Entities", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Unit", "Unit", "{CF557AD1-8D9A-48F1-9679-D41F81EA0612}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Locks.API.Tests", "src\Services\Locks\test\Unit\Locks.API.Tests\Locks.API.Tests.csproj", "{F7E77B3D-1E85-4A2C-A808-1EBF5A3976EB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Locks.API.Tests", "src\Services\Locks\test\Unit\Locks.API.Tests\Locks.API.Tests.csproj", "{F7E77B3D-1E85-4A2C-A808-1EBF5A3976EB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Locks.EventPublishing", "src\Services\Locks\src\Locks.EventPublishing\Locks.EventPublishing.csproj", "{3AA39064-0088-40A5-B00E-B64A2DB57195}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Locks.EventPublishing", "src\Services\Locks\src\Locks.EventPublishing\Locks.EventPublishing.csproj", "{3AA39064-0088-40A5-B00E-B64A2DB57195}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Integration", "Integration", "{0529A990-A890-4B41-8F18-779A640A219D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repository.Tests", "src\Services\EventAggregator\test\Integration\Repository.Tests\Repository.Tests.csproj", "{B22AEE71-12D6-4DD4-B1D2-9B1F8F10DA73}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Repository.Tests", "src\Services\EventAggregator\test\Integration\Repository.Tests\Repository.Tests.csproj", "{B22AEE71-12D6-4DD4-B1D2-9B1F8F10DA73}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tags.Repositories", "src\Services\Tags\src\Tags.Repositories\Tags.Repositories.csproj", "{59AA0C4A-30CA-4D7C-8313-F344024F4E9C}"
 EndProject
